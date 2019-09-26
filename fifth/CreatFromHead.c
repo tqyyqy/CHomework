@@ -1,83 +1,168 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "common.h"
 
 #define ElemType char
-typedef struct Node    /*½áµãÀàĞÍ¶¨Òå*/ 
+typedef struct Node    /*ç»“ç‚¹ç±»å‹å®šä¹‰*/ 
 { 
 	ElemType data;
 	struct Node  * next;
-}Node, *LinkList;  /* LinkListÎª½á¹¹Ö¸ÕëÀàĞÍ*/
-
+}Node, *LinkList;  /* LinkListä¸ºç»“æ„æŒ‡é’ˆç±»å‹*/
 
 LinkList  CreateFromHead()
-/*Í¨¹ı¼üÅÌÊäÈë±íÖĞÔªËØÖµ£¬ÀûÓÃÍ·²å·¨½¨µ¥Á´±í,²¢·µ»Ø¸Ãµ¥Á´±íÍ·Ö¸ÕëL*/
+/*é€šè¿‡é”®ç›˜è¾“å…¥è¡¨ä¸­å…ƒç´ å€¼ï¼Œåˆ©ç”¨å¤´æ’æ³•å»ºå•é“¾è¡¨,å¹¶è¿”å›è¯¥å•é“¾è¡¨å¤´æŒ‡é’ˆL*/
 { 
 	LinkList   L;
 	Node   *s;
 	char 	c;
 	int 	flag=1;
-	L=(LinkList)malloc(sizeof(Node));     /*½¨Á¢Í·½áµã*/
-	L->next=NULL;                         /*½¨Á¢¿ÕµÄµ¥Á´±íL*/
-	while(flag)   /* flag³õÖµÎª1£¬µ±ÊäÈë"$"Ê±£¬ÖÃflagÎª0£¬½¨±í½áÊø*/
+	L=(LinkList)malloc(sizeof(Node));     /*å»ºç«‹å¤´ç»“ç‚¹*/
+	L->next=NULL;                         /*å»ºç«‹ç©ºçš„å•é“¾è¡¨L*/
+
+	while(flag)   /* flagåˆå€¼ä¸º1ï¼Œå½“è¾“å…¥"$"æ—¶ï¼Œç½®flagä¸º0ï¼Œå»ºè¡¨ç»“æŸ*/
 	{
-		c=getchar();   
-		if(c!='$')
+		c=getchar();
+		//å¦‚æœå½“å‰è¯»å–ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸ºæ¢è¡Œç¬¦ï¼Œåˆ™è·³è¿‡æœ¬æ¬¡è¾“å…¥
+		if (c=='\n')
 		{
-			s=(Node*)malloc(sizeof(Node)); /*½¨Á¢ĞÂ½áµãs*/
+			continue;
+		}
+		else if (c!='$')
+		{
+			s=(Node*)malloc(sizeof(Node)); /*å»ºç«‹æ–°ç»“ç‚¹s*/
 			s->data=c;
-			s->next=L->next;/*½«s½áµã²åÈë±íÍ·*/
-			L->next=s;
+			s->next=L->next;/*å°†sç»“ç‚¹æ’å…¥è¡¨å¤´*/
+			L->next=s;	
 		}
 		else
-			flag=0;
+		{
+			return L;
+		}
 	}
 	return L;
 }
 
-Node* Get(LinkList L ,int i)
+Node *Get(LinkList L,int i)
 {
-    int j;
-    Node * p;
-    p=L;j=0;
-    while (p->next!=NULL&&j<i)
-    {
-        p=p->next;
-        j++;
-    }
-    if (i==j)
-    {
-        return p;
-    }
-    else
-    {
-        return NULL;
-    }
-    
-    
+	int j;
+	Node *p;
+	p=L;j=0;
+	while (p->next!=NULL&&j<i)
+	{
+		p=p->next;
+		j++;
+	}
+	if (i==j)
+	{
+		return p;
+	}else
+	{
+		return NULL;
+	}
+	
+}
+Node *Locate(LinkList L,ElemType key)
+{
+	Node *p;
+	p=L->next;
+	while (p!=NULL)
+	{
+		if (p->data!=key)
+		{
+			p=p->next;
+		}else
+		{
+			break;
+		}
+		
+		
+	}
+	return p;
+}
 
-} 
+int IntList(LinkList L,int i,ElemType e)
+{
+	Node *pre ,*s;
+	int k;
+	pre=L;k=0;
+	while (pre!=NULL&&k<i-1)
+	{
+		pre=pre->next;
+		k=k+1;
+	}
+	if (k!=i-1)
+	{
+		printf("æ’å…¥ä½ç½®ä¸åˆç†!");
+		return ERROR;
+	}
+	s=(Node*)malloc(sizeof(Node));
+	s->data=e;
+	s->next=pre->next;
+	pre->next=s;
+	return OK;
+}
 
 
-void main()
+int main()
 {
 	LinkList l;
 	Node *p;
-    int i;// ĞòºÅ
+    int i;// åºå·
+	char c;//key
+	int state;
     Node *d;
 
-	printf("ÓÃÍ·²å·¨½¨Á¢µ¥Á´±í,ÇëÊäÈëÁ´±íÊı¾İ,ÒÔ$½áÊø!\n");
+
+	printf("ç”¨å¤´æ’æ³•å»ºç«‹å•é“¾è¡¨,è¯·è¾“å…¥é“¾è¡¨æ•°æ®,ä»¥$ç»“æŸ!\n");
 	l = CreateFromHead();
 	p = l->next;
 	while(p!=NULL)
 	{
-		printf("%c\n",p->data);
+		printf("æ•°æ® [%c]  [%p]\n",p->data,p);
 		p=p->next;
+		
 	}
-    scanf("%d",&i);
-    printf("µ±Ç°²éÕÒĞòºÅ%d\n",i);
-    d = Get(l,i);
-    printf("d = %s\n",d->data);
+	printf("è¯·è¾“å…¥æŸ¥è¯¢åºå·:\n");
+	scanf("%d",&i);
+	d = Get(l,i);
+	if (d==NULL)
+	{
+		printf("åºå·éæ³•");
+	}else
+	{
+		printf("åºå·æŸ¥è¯¢çš„ç»“æœä¸º:%c\n",d->data);
+	}
+	printf("è¯·è¾“å…¥æŸ¥è¯¢çš„å­—ç¬¦\n");
+	getchar();//å¸æ”¶æ¢è¡Œç¬¦
+	scanf("%c",&c);
+	d = Locate(l,c);
+	if (d==NULL)
+	{
+		printf("æœªæ‰¾åˆ°æŸ¥è¯¢å­—ç¬¦");
+	}else
+	{
+		printf("å­—ç¬¦æŸ¥è¯¢çš„ä½ç½®ä¸º:%p\n",d);
+	}
+
+
+	printf("è¯·è¾“å…¥æ’å…¥åºå·:\n");
+	scanf("%d",&i);
+	printf("è¯·è¾“å…¥æ’å…¥çš„å­—ç¬¦\n");
+	getchar();//å¸æ”¶æ¢è¡Œç¬¦
+	scanf("%c",&c);
+	state = IntList(l,i,c);
+	if (state)
+	{
+		printf("æ’å…¥å¤±è´¥");
+	}else
+	{
+		printf("æ’å…¥æˆåŠŸ");
+	}
+	
+	
+
+	return OK;
 
 
 }

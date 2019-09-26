@@ -1,7 +1,7 @@
 
 typedef char ElemType;
-typedef struct Node    /*½áµãÀàĞÍ¶¨Òå*/ 
+typedef struct Node    /*ç»“ç‚¹ç±»å‹å®šä¹‰*/ 
 { 
 	ElemType data;
 	struct Node  * next;
-}Node, *LinkList;  /* LinkListÎª½á¹¹Ö¸ÕëÀàĞÍ*/
+}Node, *LinkList;  /* LinkListä¸ºç»“æ„æŒ‡é’ˆç±»å‹*/
