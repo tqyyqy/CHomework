@@ -1,10 +1,8 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "common.h"
 
-
-
+// 以头插法创建链表
 LinkList  CreateFromHead()
 /*通过键盘输入表中元素值，利用头插法建单链表,并返回该单链表头指针L*/
 { 
@@ -37,7 +35,7 @@ LinkList  CreateFromHead()
 	}
 	return L;
 }
-
+// 按序号查找
 Node *Get(LinkList L,int i)
 {
 	int j;
@@ -57,8 +55,10 @@ Node *Get(LinkList L,int i)
 	}
 	
 }
+// 按值查找
 Node *Locate(LinkList L,ElemType key)
 {
+
 	Node *p;
 	p=L->next;
 	while (p!=NULL)
@@ -76,6 +76,7 @@ Node *Locate(LinkList L,ElemType key)
 	return p;
 }
 
+// 插入函数
 int IntList(LinkList L,int i,ElemType e)
 {
 	Node *pre ,*s;
@@ -97,77 +98,26 @@ int IntList(LinkList L,int i,ElemType e)
 	pre->next=s;
 	return OK;
 }
-
-
-int main()
+int Delete(LinkList l,int i)
 {
-	LinkList l;
-	Node *p;
-    int i;// 序号
-	char c;//key
-	int state;
-    Node *d;
-
-
-	printf("用头插法建立单链表,请输入链表数据,以$结束!\n");
-	l = CreateFromHead();
-	p = l->next;
-	while(p!=NULL)
+	Node *p,*r;
+	int k;
+	p=l;k=0;
+	while (p -> next!=NULL&&k<i-1)
 	{
-		printf("原始数据 [%c]  [%p]\n",p->data,p);
 		p=p->next;
-		
+		k=k+1;
 	}
-	printf("=====单链表的序号查找=====\n");
-	printf("请输入查询序号:\n");
-	scanf("%d",&i);
-	d = Get(l,i);
-	if (d==NULL)
+	if (k!=i-1)
 	{
-		printf("序号非法!\n");
-	}else
-	{
-		printf("序号查询的结果为:%c\n",d->data);
-	}
-	printf("=====单链表的按值查找=====\n");
-	printf("请输入查询的字符\n");
-	getchar();//吸收换行符
-	scanf("%c",&c);
-	d = Locate(l,c);
-	if (d==NULL)
-	{
-		printf("未找到查询字符!\n");
-	}else
-	{
-		printf("字符存在,内存地址为:%p\n",d);
-	}
-
-
-
-	printf("=====单链表的插入操作=====\n");
-	printf("请输入插入序号:\n");
-	scanf("%d",&i);
-	printf("请输入插入的字符\n");
-	getchar();//吸收换行符
-	scanf("%c",&c);
-	state = IntList(l,i,c);
-	if (state)
-	{
-		printf("插入失败!\n");
-	}else
-	{
-		printf("插入成功!\n");
-	}
+		printf("删除位置%d非法\n",i);
+		return ERROR;
 	
-	p = l->next;
-	while(p!=NULL)
-	{
-		printf("修改后数据 [%c]  [%p]\n",p->data,p);
-		p=p->next;
-		
 	}
+	r=p->next;
+	p->next=p->next->next;
 	
-
+	free(r);
 	return OK;
 
 

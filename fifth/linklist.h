@@ -1,7 +1,95 @@
-
-typedef char ElemType;
-typedef struct Node    /*ç»“ç‚¹ç±»åž‹å®šä¹‰*/ 
+#include <stdio.h>
+#include <stdlib.h>
+#include "common.h"
+LinkList  CreateFromHead()
+/*Í¨¹ý¼üÅÌÊäÈë±íÖÐÔªËØÖµ£¬ÀûÓÃÍ·²å·¨½¨µ¥Á´±í,²¢·µ»Ø¸Ãµ¥Á´±íÍ·Ö¸ÕëL*/
 { 
-	ElemType data;
-	struct Node  * next;
-}Node, *LinkList;  /* LinkListä¸ºç»“æž„æŒ‡é’ˆç±»åž‹*/
+	LinkList   L;
+	Node   *s;
+	char 	c;
+	int 	flag=1;
+	L=(LinkList)malloc(sizeof(Node));     /*½¨Á¢Í·½áµã*/
+	L->next=NULL;                         /*½¨Á¢¿ÕµÄµ¥Á´±íL*/
+
+	while(flag)   /* flag³õÖµÎª1£¬µ±ÊäÈë"$"Ê±£¬ÖÃflagÎª0£¬½¨±í½áÊø*/
+	{
+		c=getchar();
+		//Èç¹ûµ±Ç°¶ÁÈ¡ÏÂÒ»¸ö×Ö·ûÎª»»ÐÐ·û£¬ÔòÌø¹ý±¾´ÎÊäÈë
+		if (c=='\n')
+		{
+			continue;
+		}
+		else if (c!='$')
+		{
+			s=(Node*)malloc(sizeof(Node)); /*½¨Á¢ÐÂ½áµãs*/
+			s->data=c;
+			s->next=L->next;/*½«s½áµã²åÈë±íÍ·*/
+			L->next=s;	
+		}
+		else
+		{
+			return L;
+		}
+	}
+	return L;
+}
+
+Node *Get(LinkList L,int i)
+{
+	int j;
+	Node *p;
+	p=L;j=0;
+	while (p->next!=NULL&&j<i)
+	{
+		p=p->next;
+		j++;
+	}
+	if (i==j)
+	{
+		return p;
+	}else
+	{
+		return NULL;
+	}
+	
+}
+Node *Locate(LinkList L,ElemType key)
+{
+	Node *p;
+	p=L->next;
+	while (p!=NULL)
+	{
+		if (p->data!=key)
+		{
+			p=p->next;
+		}else
+		{
+			break;
+		}
+		
+		
+	}
+	return p;
+}
+
+int IntList(LinkList L,int i,ElemType e)
+{
+	Node *pre ,*s;
+	int k;
+	pre=L;k=0;
+	while (pre!=NULL&&k<i-1)
+	{
+		pre=pre->next;
+		k=k+1;
+	}
+	if (k!=i-1)
+	{
+		printf("²åÈëÎ»ÖÃ²»ºÏÀí!");
+		return ERROR;
+	}
+	s=(Node*)malloc(sizeof(Node));
+	s->data=e;
+	s->next=pre->next;
+	pre->next=s;
+	return OK;
+}
