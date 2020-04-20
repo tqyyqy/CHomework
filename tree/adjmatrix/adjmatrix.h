@@ -1,31 +1,31 @@
 #include "stdlib.h"
 #include "stdio.h"
 
-#define MAX_VERTEX_NUM 10             /*×î¶à¶¥µã¸öÊı*/
-#define INFINITY 32768             /*±íÊ¾¼«´óÖµ£¬¼´¡Ş*/
+#define MAX_VERTEX_NUM 10             /*æœ€å¤šé¡¶ç‚¹ä¸ªæ•°*/
+#define INFINITY 32768             /*è¡¨ç¤ºæå¤§å€¼ï¼Œå³âˆ*/
 #define True 1
 #define False 0
 #define Error -1
 #define Ok 1
 
-typedef enum{DG, DN, UDG, UDN} GraphKind;  /*Í¼µÄÖÖÀà£ºDG±íÊ¾ÓĞÏòÍ¼, DN±íÊ¾ÓĞÏòÍø, UDG±íÊ¾ÎŞÏòÍ¼, UDN±íÊ¾ÎŞÏòÍø*/
-typedef char VertexData;    /*¼ÙÉè¶¥µãÊı¾İÎª×Ö·ûĞÍ*/
+typedef enum{DG, DN, UDG, UDN} GraphKind;  /*å›¾çš„ç§ç±»ï¼šDGè¡¨ç¤ºæœ‰å‘å›¾, DNè¡¨ç¤ºæœ‰å‘ç½‘, UDGè¡¨ç¤ºæ— å‘å›¾, UDNè¡¨ç¤ºæ— å‘ç½‘*/
+typedef char VertexData;    /*å‡è®¾é¡¶ç‚¹æ•°æ®ä¸ºå­—ç¬¦å‹*/
 
 typedef struct ArcNode
 {
-	int adj;   /*¶ÔÓÚÎŞÈ¨Í¼£¬ÓÃ1»ò0±íÊ¾ÊÇ·ñÏàÁÚ£»¶Ô´øÈ¨Í¼£¬ÔòÎªÈ¨ÖµÀàĞÍ*/
+	int adj;   /*å¯¹äºæ— æƒå›¾ï¼Œç”¨1æˆ–0è¡¨ç¤ºæ˜¯å¦ç›¸é‚»ï¼›å¯¹å¸¦æƒå›¾ï¼Œåˆ™ä¸ºæƒå€¼ç±»å‹*/
 
 } ArcNode;
 
 typedef struct
 {
-	VertexData vexs[MAX_VERTEX_NUM];                        /*¶¥µãÏòÁ¿*/
-	ArcNode arcs[MAX_VERTEX_NUM][MAX_VERTEX_NUM];   /*ÁÚ½Ó¾ØÕó*/
-	int vexnum,arcnum;          /*Í¼µÄ¶¥µãÊıºÍ»¡Êı*/
-	GraphKind kind;                 /*Í¼µÄÖÖÀà±êÖ¾*/
+	VertexData vexs[MAX_VERTEX_NUM];                        /*é¡¶ç‚¹å‘é‡*/
+	ArcNode arcs[MAX_VERTEX_NUM][MAX_VERTEX_NUM];   /*é‚»æ¥çŸ©é˜µ*/
+	int vexnum,arcnum;          /*å›¾çš„é¡¶ç‚¹æ•°å’Œå¼§æ•°*/
+	GraphKind kind;                 /*å›¾çš„ç§ç±»æ ‡å¿—*/
 }AdjMatrix;      /*(Adjacency Matrix Graph)*/
 
-int LocateVertex(AdjMatrix *G,VertexData v)    /*Çó¶¥µãÎ»ÖÃº¯Êı*/
+int LocateVertex(AdjMatrix *G,VertexData v)    /*æ±‚é¡¶ç‚¹ä½ç½®å‡½æ•°*/
 {
 	int j=Error,k;
 	for(k=0;k<G->vexnum;k++)

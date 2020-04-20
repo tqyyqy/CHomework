@@ -1,70 +1,70 @@
 
 #include "linklist.h"
-
-int main()
+int main(int argc, char const *argv[])
 {
+
 	LinkList l;
 	Node *p;
-    int i;// ÐòºÅ
+    int i;// åºå·
 	char c;//key
 	int state;
     Node *d;
 
 
-	printf("ÓÃÍ·²å·¨½¨Á¢µ¥Á´±í,ÇëÊäÈëÁ´±íÊý¾Ý,ÒÔ$½áÊø!\n");
+	printf("ç”¨å¤´æ’æ³•å»ºç«‹å•é“¾è¡¨,è¯·è¾“å…¥é“¾è¡¨æ•°æ®,ä»¥$ç»“æŸ!\n");
 	l = CreateFromHead();
 	p = l->next;
 	while(p!=NULL)
 	{
-		printf("Ô­Ê¼Êý¾Ý [%c]  [%p]\n",p->data,p);
+		printf("åŽŸå§‹æ•°æ® [%c]  [%p]\n",p->data,p);
 		p=p->next;
 		
 	}
-	printf("=====µ¥Á´±íµÄÐòºÅ²éÕÒ=====\n");
-	printf("ÇëÊäÈë²éÑ¯ÐòºÅ:\n");
+	printf("=====å•é“¾è¡¨çš„åºå·æŸ¥æ‰¾=====\n");
+	printf("è¯·è¾“å…¥æŸ¥è¯¢åºå·:\n");
 	scanf("%d",&i);
 	d = Get(l,i);
 	if (d==NULL)
 	{
-		printf("ÐòºÅ·Ç·¨!\n");
+		printf("åºå·éžæ³•!\n");
 	}else
 	{
-		printf("ÐòºÅ²éÑ¯µÄ½á¹ûÎª:%c\n",d->data);
+		printf("åºå·æŸ¥è¯¢çš„ç»“æžœä¸º:%c\n",d->data);
 	}
-	printf("=====µ¥Á´±íµÄ°´Öµ²éÕÒ=====\n");
-	printf("ÇëÊäÈë²éÑ¯µÄ×Ö·û\n");
-	getchar();//ÎüÊÕ»»ÐÐ·û
+	printf("=====å•é“¾è¡¨çš„æŒ‰å€¼æŸ¥æ‰¾=====\n");
+	printf("è¯·è¾“å…¥æŸ¥è¯¢çš„å­—ç¬¦\n");
+	getchar();//å¸æ”¶æ¢è¡Œç¬¦
 	scanf("%c",&c);
 	d = Locate(l,c);
 	if (d==NULL)
 	{
-		printf("Î´ÕÒµ½²éÑ¯×Ö·û!\n");
+		printf("æœªæ‰¾åˆ°æŸ¥è¯¢å­—ç¬¦!\n");
 	}else
 	{
-		printf("×Ö·û´æÔÚ,ÄÚ´æµØÖ·Îª:%p\n",d);
+		printf("å­—ç¬¦å­˜åœ¨,å†…å­˜åœ°å€ä¸º:%p\n",d);
 	}
 
 
 
-	printf("=====µ¥Á´±íµÄ²åÈë²Ù×÷=====\n");
-	printf("ÇëÊäÈë²åÈëÐòºÅ:\n");
+	printf("=====å•é“¾è¡¨çš„æ’å…¥æ“ä½œ=====\n");
+	printf("è¯·è¾“å…¥æ’å…¥åºå·:\n");
 	scanf("%d",&i);
-	printf("ÇëÊäÈë²åÈëµÄ×Ö·û\n");
-	getchar();//ÎüÊÕ»»ÐÐ·û
+	printf("è¯·è¾“å…¥æ’å…¥çš„å­—ç¬¦\n");
+	getchar();//å¸æ”¶æ¢è¡Œç¬¦
 	scanf("%c",&c);
 	state = IntList(l,i,c);
 	if (state)
 	{
-		printf("²åÈëÊ§°Ü!\n");
+		printf("æ’å…¥å¤±è´¥!\n");
 	}else
 	{
-		printf("²åÈë³É¹¦!\n");
+		printf("æ’å…¥æˆåŠŸ!\n");
 	}
 	
 	p = l->next;
 	while(p!=NULL)
 	{
-		printf("ÐÞ¸ÄºóÊý¾Ý [%c]  [%p]\n",p->data,p);
+		printf("ä¿®æ”¹åŽæ•°æ® [%c]  [%p]\n",p->data,p);
 		p=p->next;
 		
 	}
